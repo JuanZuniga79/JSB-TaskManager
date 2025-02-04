@@ -18,8 +18,13 @@ import java.util.List;
 @Component
 public class JwtAuthenticatorManager implements ReactiveAuthenticationManager {
 
-    private JwtSupport jwtSupport;
-    private UserRepository userRepository;
+    private final JwtSupport jwtSupport;
+    private final UserRepository userRepository;
+
+    public JwtAuthenticatorManager(JwtSupport jwtSupport, UserRepository userRepository) {
+        this.jwtSupport = jwtSupport;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {

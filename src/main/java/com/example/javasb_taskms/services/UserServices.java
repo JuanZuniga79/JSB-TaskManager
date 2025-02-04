@@ -35,6 +35,15 @@ public class UserServices {
         return UserMapper.UserToResponseDTO(emailUser, token);
     }
 
+    public User getUserByToken(String token) throws Exception {
+        String username = _securityServices.getTokenUsername(token);
+        User user = _userRepository.findByUsername(username);
+        if(user == null) {
+            throw new Exception("User not found");
+        }
+        return user;
+    }
+
     public void createUser(CreateUserDTO user) throws Exception {
         User dbUser = _userRepository.findByEmail(user.getEmail());
         if(dbUser != null) throw new Exception("User already exists");
